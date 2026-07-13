@@ -46,6 +46,13 @@ try:
         EC.element_to_be_clickable((By.ID, "BuscarCandidato"))
     )
     Botao.click()
+    sleep(5)
+
+    print("Depois do clique:")
+    print(driver.current_url)
+    print(driver.title)
+    
+    driver.save_screenshot("depois_clique.png")
 
     print("Fase 1 OK")
 
@@ -57,19 +64,17 @@ except Exception as e:
 
 #______________________________________________________________
 try:
+    sleep(5)
+
+    print(driver.page_source[:1000])
+
     BotaoPesquisar = wait.until(
         EC.element_to_be_clickable((By.ID, "ListaEscola"))
     )
-    driver.execute_script(
-        "arguments[0].scrollIntoView({block: 'center'});",
-        BotaoPesquisar
-    )
-    print("Fase 2 OK")
 
 except Exception as e:
     print("ERRO FASE 2:", e)
-    driver.save_screenshot("erro_fase2.png")
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 2")
+    raise
 #______________________________________________________________
 Grid = ""
 try:
