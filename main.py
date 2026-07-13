@@ -51,23 +51,47 @@ except Exception as e:
 sleep(5)
 #______________________________________________________________
 try:
-    select = Select(wait.until(EC.element_to_be_clickable((By.ID, "EtapaEnsinoPesquisa"))))
+    select = Select(wait.until(
+        EC.element_to_be_clickable((By.ID, "EtapaEnsinoPesquisa"))
+    ))
+    print("Select etapa OK")
+
     select.select_by_index(6)
 
-    select2 = Select(wait.until(EC.element_to_be_clickable((By.ID, "MunicipioPesquisa"))))
+    select2 = Select(wait.until(
+        EC.element_to_be_clickable((By.ID, "MunicipioPesquisa"))
+    ))
+    print("Select municipio OK")
+
     select2.select_by_index(50)
 
-    select3 = Select(wait.until(EC.element_to_be_clickable((By.ID, "BairroPesquisa"))))
+    select3 = Select(wait.until(
+        EC.element_to_be_clickable((By.ID, "BairroPesquisa"))
+    ))
+    print("Select bairro OK")
+
     select3.select_by_index(27)
 
-    Manha = wait.until(EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']")))
+    Manha = wait.until(
+        EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']"))
+    )
+    print("Manhã OK")
+
     Manha.click()
+
     BotaoPesquisar.click()
-    sleep(10)
-    Grid = driver.find_element(By. ID, "ulListGrid" ).text
+    print("Botão pesquisar OK")
+
+    Grid = wait.until(
+        EC.presence_of_element_located((By.ID, "ulListGrid"))
+    ).text
+
+    print("Grid OK:", Grid[:100])
+
 except Exception as e:
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 3​ - {e}")
+    print("ERRO FASE 3:", repr(e))
     driver.save_screenshot("erro_fase3.png")
+    raise
 
 if "Sem escolas retornadas" in Grid:
     Bot(f"| DATA - {hoje} | Status - Sem Vagas❌​")
