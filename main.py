@@ -58,7 +58,7 @@ try:
     Manha = wait.until(EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']")))
     Manha.click()
     BotaoPesquisar.click()
-    sleep(2)
+    sleep(10)
     Grid = driver.find_element(By. ID, "ulListGrid" ).text
 except Exception as e:
     Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 3​ - {e}")
