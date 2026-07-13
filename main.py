@@ -9,7 +9,7 @@ from datetime import datetime
 from selenium.webdriver.chrome.options import Options
 
 options = Options()
-options.add_argument("--headless=new")
+
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--window-size=1920,1080")
@@ -25,7 +25,7 @@ try:
     Matricula = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "form-control.form-control-sm")))
     Matricula.send_keys(202505460253566)
     Data = wait.until(EC.visibility_of_element_located((By.ID, "DataNascimento")))
-    Data.send_keys("04062010")
+    Data.send_keys("06042010")
     CampoNome = wait.until(EC.visibility_of_element_located((By.ID, "NomeCompl")))
     CampoNome.send_keys("VINICIUS RUFINO DA SILVA SANTOS")
     Campomae = wait.until(EC.visibility_of_element_located((By.ID, "NomeMae")))
@@ -48,13 +48,19 @@ except Exception as e:
 sleep(5)
 #______________________________________________________________
 try:
-    select = Select(wait.until(EC.element_to_be_clickable((By.ID, "EtapaEnsinoPesquisa"))))
+    select = Select(wait.until(
+        EC.element_to_be_clickable((By.ID, "EtapaEnsinoPesquisa"))))
     select.select_by_index(6)
 
-    select2 = Select(wait.until(EC.element_to_be_clickable((By.ID, "MunicipioPesquisa"))))
+    select2 = Select(wait.until(
+        EC.element_to_be_clickable((By.ID, "MunicipioPesquisa"))))
     select2.select_by_index(50)
 
-    select3 = Select(wait.until(EC.element_to_be_clickable((By.ID, "BairroPesquisa"))))
+    wait.until(
+        lambda driver: len(
+            Select(driver.find_element(By.ID, "BairroPesquisa")).options) > 27)
+
+    select3 = Select(driver.find_element(By.ID, "BairroPesquisa"))
     select3.select_by_index(27)
 
     Manha = wait.until(EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']")))
