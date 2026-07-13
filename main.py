@@ -20,21 +20,24 @@ wait = WebDriverWait(driver, timeout=25)
 Grid = ''
 try:
     driver.get("https://www.matriculafacil.rj.gov.br/Transferencia/Busca")
-    wait.until(EC.presence_of_element_located((By.ID, "st-content-page")))
 
-    Matricula = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "form-control.form-control-sm")))
-    Matricula.send_keys(202505460253566)
-    Data = wait.until(EC.visibility_of_element_located((By.ID, "DataNascimento")))
-    Data.send_keys("06042010")
-    CampoNome = wait.until(EC.visibility_of_element_located((By.ID, "NomeCompl")))
-    CampoNome.send_keys("VINICIUS RUFINO DA SILVA SANTOS")
-    Campomae = wait.until(EC.visibility_of_element_located((By.ID, "NomeMae")))
-    Campomae.send_keys("MONIQUE RUFINO DA SILVA")
-    Botao = wait.until(EC.element_to_be_clickable((By.ID, "BuscarCandidato")))
-    Botao.click()
+    sleep(5)
+
+    print("URL ATUAL:", driver.current_url)
+    print("TÍTULO:", driver.title)
+
+    driver.save_screenshot("inicio.png")
+
+    Matricula = wait.until(
+        EC.presence_of_element_located((By.CLASS_NAME, "form-control.form-control-sm"))
+    )
+
+    print("Campo matrícula encontrado!")
+
 except Exception as e:
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 1 - Erro: {e}​")
+    print("ERRO FASE 1:", e)
     driver.save_screenshot("erro_fase1.png")
+    raise
 #______________________________________________________________
 try:
     BotaoPesquisar = wait.until(EC.presence_of_element_located((By.ID, "ListaEscola")))
