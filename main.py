@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.options import Options
 
 options = Options()
 
+options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--window-size=1920,1080")
@@ -25,7 +26,7 @@ try:
     Matricula = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "form-control.form-control-sm")))
     Matricula.send_keys(202505460253566)
     Data = wait.until(EC.visibility_of_element_located((By.ID, "DataNascimento")))
-    Data.send_keys("06042010")
+    Data.send_keys("04062010")
     CampoNome = wait.until(EC.visibility_of_element_located((By.ID, "NomeCompl")))
     CampoNome.send_keys("VINICIUS RUFINO DA SILVA SANTOS")
     Campomae = wait.until(EC.visibility_of_element_located((By.ID, "NomeMae")))
