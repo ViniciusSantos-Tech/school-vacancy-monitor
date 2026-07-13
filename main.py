@@ -17,6 +17,7 @@ options.add_argument("--window-size=1920,1080")
 driver = webdriver.Chrome(options=options)
 hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
 wait = WebDriverWait(driver, timeout=5)
+Grid = ''
 try:
     driver.get("https://www.matriculafacil.rj.gov.br/Transferencia/Busca")
     wait.until(EC.presence_of_element_located((By.ID, "st-content-page")))
@@ -31,8 +32,8 @@ try:
     Campomae.send_keys("MONIQUE RUFINO DA SILVA")
     Botao = wait.until(EC.element_to_be_clickable((By.ID, "BuscarCandidato")))
     Botao.click()
-except:
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 1​")
+except Exception as e:
+    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 1 - Erro: {e}​")
 #______________________________________________________________
 try:
     BotaoPesquisar = driver.find_element(By.ID, "ListaEscola")
@@ -40,8 +41,8 @@ try:
         "arguments[0].scrollIntoView({block: 'center'});",
         BotaoPesquisar
     )
-except:
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 2​")
+except Exception as e:
+    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 2 - {e}​")
 sleep(1)
 #______________________________________________________________
 try:
@@ -59,8 +60,8 @@ try:
     BotaoPesquisar.click()
     sleep(2)
     Grid = driver.find_element(By. ID, "ulListGrid" ).text
-except:
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 3​")
+except Exception as e:
+    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 3​ - {e}")
 
 if "Sem escolas retornadas" in Grid:
     Bot(f"| DATA - {hoje} | Status - Sem Vagas❌​")
