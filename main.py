@@ -62,7 +62,7 @@ try:
     select3 = Select(driver.find_element(By.ID, "BairroPesquisa"))
     select3.select_by_index(27)
 
-    Manha = wait.until(EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoTarde']")))
+    Manha = wait.until(EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']")))
     Manha.click()
     BotaoPesquisar.click()
     sleep(10)
