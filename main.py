@@ -16,7 +16,7 @@ options.add_argument("--window-size=1920,1080")
 
 driver = webdriver.Chrome(options=options)
 hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
-wait = WebDriverWait(driver, timeout=5)
+wait = WebDriverWait(driver, timeout=25)
 Grid = ''
 try:
     driver.get("https://www.matriculafacil.rj.gov.br/Transferencia/Busca")
