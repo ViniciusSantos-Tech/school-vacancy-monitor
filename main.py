@@ -30,7 +30,7 @@ try:
     Data = wait.until(
         EC.visibility_of_element_located((By.ID, "DataNascimento"))
     )
-    Data.send_keys("06042010")
+    Data.send_keys("06/04/2010")
 
     CampoNome = wait.until(
         EC.visibility_of_element_located((By.ID, "NomeCompl"))
