@@ -6,14 +6,21 @@ from selenium.webdriver.support.ui import Select
 from time import sleep
 from TelegramBot import Bot
 from datetime import datetime
+from selenium.webdriver.chrome.options import Options
 
-hoje = datetime.now().strftime("%d/%m/%Y")
-driver = webdriver.Chrome()
+options = Options()
+options.add_argument("--headless=new")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--window-size=1920,1080")
+
+driver = webdriver.Chrome(options=options)
+hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
 wait = WebDriverWait(driver, timeout=5)
 try:
     driver.get("https://www.matriculafacil.rj.gov.br/Transferencia/Busca")
     wait.until(EC.presence_of_element_located((By.ID, "st-content-page")))
-    driver.maximize_window()
+
     Matricula = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "form-control.form-control-sm")))
     Matricula.send_keys(202505460253566)
     Data = wait.until(EC.visibility_of_element_located((By.ID, "DataNascimento")))
