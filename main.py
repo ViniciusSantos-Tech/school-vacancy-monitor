@@ -34,16 +34,18 @@ try:
     Botao.click()
 except Exception as e:
     Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 1 - Erro: {e}​")
+    driver.save_screenshot("erro_fase1.png")
 #______________________________________________________________
 try:
-    BotaoPesquisar = driver.find_element(By.ID, "ListaEscola")
+    BotaoPesquisar = wait.until(EC.presence_of_element_located((By.ID, "ListaEscola")))
     driver.execute_script(
         "arguments[0].scrollIntoView({block: 'center'});",
         BotaoPesquisar
     )
 except Exception as e:
     Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 2 - {e}​")
-sleep(1)
+    driver.save_screenshot("erro_fase2.png")
+sleep(5)
 #______________________________________________________________
 try:
     select = Select(wait.until(EC.element_to_be_clickable((By.ID, "EtapaEnsinoPesquisa"))))
@@ -62,6 +64,7 @@ try:
     Grid = driver.find_element(By. ID, "ulListGrid" ).text
 except Exception as e:
     Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 3​ - {e}")
+    driver.save_screenshot("erro_fase3.png")
 
 if "Sem escolas retornadas" in Grid:
     Bot(f"| DATA - {hoje} | Status - Sem Vagas❌​")
