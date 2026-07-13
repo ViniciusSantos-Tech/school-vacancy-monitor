@@ -7,6 +7,7 @@ from time import sleep
 from TelegramBot import Bot
 from datetime import datetime
 from selenium.webdriver.chrome.options import Options
+from zoneinfo import ZoneInfo
 
 options = Options()
 
@@ -16,7 +17,7 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--window-size=1920,1080")
 
 driver = webdriver.Chrome(options=options)
-hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
+hoje = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M")
 wait = WebDriverWait(driver, timeout=25)
 Grid = ''
 try:
