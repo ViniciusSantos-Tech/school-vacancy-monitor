@@ -13,89 +13,102 @@ options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--window-size=1920,1080")
-
 driver = webdriver.Chrome(options=options)
+
 hoje = datetime.now().strftime("%d/%m/%Y %H:%M")
-wait = WebDriverWait(driver, timeout=25)
-Grid = ''
+wait = WebDriverWait(driver, timeout=30)
 try:
     driver.get("https://www.matriculafacil.rj.gov.br/Transferencia/Busca")
 
-    sleep(5)
-
-    print("URL ATUAL:", driver.current_url)
-    print("TÍTULO:", driver.title)
-
-    driver.save_screenshot("inicio.png")
+    wait.until(EC.presence_of_element_located((By.ID, "st-content-page")))
 
     Matricula = wait.until(
         EC.presence_of_element_located((By.CLASS_NAME, "form-control.form-control-sm"))
     )
+    Matricula.send_keys("202505460253566")
 
-    print("Campo matrícula encontrado!")
+    Data = wait.until(
+        EC.visibility_of_element_located((By.ID, "DataNascimento"))
+    )
+    Data.send_keys("06042010")
+
+    CampoNome = wait.until(
+        EC.visibility_of_element_located((By.ID, "NomeCompl"))
+    )
+    CampoNome.send_keys("VINICIUS RUFINO DA SILVA SANTOS")
+
+    Campomae = wait.until(
+        EC.visibility_of_element_located((By.ID, "NomeMae"))
+    )
+    Campomae.send_keys("MONIQUE RUFINO DA SILVA")
+
+    Botao = wait.until(
+        EC.element_to_be_clickable((By.ID, "BuscarCandidato"))
+    )
+    Botao.click()
+
+    print("Fase 1 OK")
 
 except Exception as e:
     print("ERRO FASE 1:", e)
     driver.save_screenshot("erro_fase1.png")
-    raise
+    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 1")
+
+
 #______________________________________________________________
 try:
-    BotaoPesquisar = wait.until(EC.presence_of_element_located((By.ID, "ListaEscola")))
+    BotaoPesquisar = wait.until(
+        EC.element_to_be_clickable((By.ID, "ListaEscola"))
+    )
     driver.execute_script(
         "arguments[0].scrollIntoView({block: 'center'});",
         BotaoPesquisar
     )
+    print("Fase 2 OK")
+
 except Exception as e:
-    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 2 - {e}​")
+    print("ERRO FASE 2:", e)
     driver.save_screenshot("erro_fase2.png")
-sleep(5)
+    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 2")
 #______________________________________________________________
+Grid = ""
 try:
     select = Select(wait.until(
         EC.element_to_be_clickable((By.ID, "EtapaEnsinoPesquisa"))
     ))
-    print("Select etapa OK")
-
     select.select_by_index(6)
 
     select2 = Select(wait.until(
         EC.element_to_be_clickable((By.ID, "MunicipioPesquisa"))
     ))
-    print("Select municipio OK")
-
     select2.select_by_index(50)
 
     select3 = Select(wait.until(
         EC.element_to_be_clickable((By.ID, "BairroPesquisa"))
     ))
-    print("Select bairro OK")
-
     select3.select_by_index(27)
 
     Manha = wait.until(
-        EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']"))
+        EC.element_to_be_clickable((By.XPATH, "//label[@for='TurnoManha']"))
     )
-    print("Manhã OK")
-
     Manha.click()
 
     BotaoPesquisar.click()
-    print("Botão pesquisar OK")
 
     Grid = wait.until(
         EC.presence_of_element_located((By.ID, "ulListGrid"))
     ).text
 
-    print("Grid OK:", Grid[:100])
+    print("Fase 3 OK")
 
 except Exception as e:
-    print("ERRO FASE 3:", repr(e))
+    print("ERRO FASE 3:", e)
     driver.save_screenshot("erro_fase3.png")
-    raise
+    Bot(f"| DATA - {hoje} | Status - Erro no Script!!⚠️ - Fase 3")
+#______________________________________________________________
 
 if "Sem escolas retornadas" in Grid:
-    Bot(f"| DATA - {hoje} | Status - Sem Vagas❌​")
+    Bot(f"| DATA - {hoje} | Status - Sem Vagas❌")
 else:
-    Bot(f"| DATA - {hoje} | Status - VAGAS ENCONTRADAS!!✅​")
-
+    Bot(f"| DATA - {hoje} | Status - VAGAS ENCONTRADAS!!✅")
 driver.quit()
