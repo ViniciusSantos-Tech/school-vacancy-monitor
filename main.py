@@ -68,11 +68,18 @@ try:
     select2 = Select(wait.until(EC.element_to_be_clickable((By.ID, "MunicipioPesquisa"))))
     select2.select_by_index(indexmunicipio)
 
-     wait.until(
-    lambda driver: len(Select(driver.find_element(By.ID, "BairroPesquisa")).options) > indexbairro)
-
-
-    Manha = wait.until(EC.element_to_be_clickable((By.XPATH,"//label[@for='TurnoManha']")))
+    wait.until(
+        lambda driver: len(
+            Select(driver.find_element(By.ID, "BairroPesquisa")).options
+        ) > indexbairro
+    )
+    
+    select3 = Select(driver.find_element(By.ID, "BairroPesquisa"))
+    select3.select_by_index(indexbairro)
+    
+    Manha = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//label[@for='TurnoManha']"))
+    )
     Manha.click()
     BotaoPesquisar.click()
     sleep(5)
