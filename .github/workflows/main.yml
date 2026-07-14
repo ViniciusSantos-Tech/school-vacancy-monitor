@@ -24,14 +24,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Executar script
-        env:
-            TOKEN: ${{ secrets.TOKEN }}
-            CHAT_ID: ${{ secrets.CHAT_ID }}
-            MATRICULA: ${{ secrets.MATRICULA }}
-            DATANASCIMENTO: ${{ secrets.DATANASCIMENTO }}
-            NOMEALUNO: ${{ secrets.NOMEALUNO }}
-            NOMEMAE: ${{ secrets.NOMEMAE }}
-            INDEXANO: ${{ secrets.INDEXANO }}
-            INDEXMUNICIPIO: ${{ secrets.INDEXMUNICIPIO }}
-            INDEXBAIRRO: ${{ secrets.INDEXBAIRRO }}
+        env:          
+            TOKEN: ${{ vars.TOKEN }}
+            CHAT_ID: ${{ vars.CHAT_ID }}
+            MATRICULA: ${{ vars.MATRICULA }}
+            DATANASCIMENTO: ${{ vars.DATANASCIMENTO }}
+            NOMEALUNO: ${{ vars.NOMEALUNO }}
+            NOMEMAE: ${{ vars.NOMEMAE }}
+            INDEXANO: ${{ vars.INDEXANO }}
+            INDEXMUNICIPIO: ${{ vars.INDEXMUNICIPIO }}
+            INDEXBAIRRO: ${{ vars.INDEXBAIRRO }}
         run: python main.py
