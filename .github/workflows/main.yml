@@ -1,8 +1,8 @@
 name: Matrícula Monitor
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
+  repository_dispatch:
+    types: [trigger-tests]
   workflow_dispatch:
 
 jobs:
